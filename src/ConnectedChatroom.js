@@ -158,7 +158,7 @@ export default class ConnectedChatroom extends Component<
   }
 
   async parseMessages(RasaMessages: Array<RasaMessage>) {
-    const validMessageTypes = ["text", "image", "buttons", "attachment", "custom"];
+    const validMessageTypes = ["text", "image", "buttons", "attachment", "custom", "quick_replies"];
 
     let expandedMessages = [];
 
@@ -177,6 +177,14 @@ export default class ConnectedChatroom extends Component<
         validMessage = true;
         expandedMessages.push(
           this.createNewBotMessage({ type: "button", buttons: message.buttons })
+        );
+      }
+
+      // supporting quick_replies for botfront
+      if (message.quick_replies) {
+        validMessage = true;
+        expandedMessages.push(
+          this.createNewBotMessage({ type: "button", buttons: message.quick_replies })
         );
       }
 
@@ -207,6 +215,8 @@ export default class ConnectedChatroom extends Component<
         }
         console.log(`switching to ${message.custom.handoff_host}`);
         this.sendMessage(`/${this.props.handoffIntent}{"from_host":"${this.props.host}"}`);
+        // TODO (saurabh): ws subscribe
+
         return;
       }
 

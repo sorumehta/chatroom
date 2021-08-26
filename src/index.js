@@ -40,12 +40,12 @@ window.Chatroom = function(options: ChatroomOptions) {
     <ConnectedChatroom
       userId={sessionUserId}
       host={options.host}
-      title={options.title || "Chat"}
-      speechRecognition={options.speechRecognition}
+      title={options.title || "eSSL Chat"}
+      speechRecognition={null}
       welcomeMessage={options.welcomeMessage}
       waitingTimeout={options.waitingTimeout}
       fetchOptions={options.fetchOptions}
-      voiceLang={options.voiceLang}
+      voiceLang={null}
     />,
     options.container
   );
