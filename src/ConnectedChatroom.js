@@ -206,7 +206,11 @@ export default class ConnectedChatroom extends Component<
     const validMessageTypes = ["text", "image", "buttons", "attachment", "custom", "quick_replies"];
 
     let expandedMessages = [];
-
+    if(!Array.isArray(RasaMessages)){
+      console.log("ERROR: RasaMessages is not an array. It is of type:")
+      console.log(typeof RasaMessages)
+      console.log(RasaMessages)
+    }
     RasaMessages.filter((message: RasaMessage) =>
       validMessageTypes.some(type => type in message)
     ).forEach((message: RasaMessage) => {
@@ -281,8 +285,7 @@ export default class ConnectedChatroom extends Component<
         const that = this
         // Listen for messages
         connection.addEventListener('message', function (event) {
-          console.log('Message from server ');
-          console.log(event.data.message)
+          
           const event_data = JSON.parse(event.data)
           if(event_data.message){
             const event_type = event_data.message.event
@@ -314,7 +317,7 @@ export default class ConnectedChatroom extends Component<
       }
 
       if (validMessage === false)
-        throw Error("Could not parse message from Bot or empty message");
+        console.log("WARNING: Message could not parse message from Bot or empty message");
     });
 
     // Bot messages should be displayed in a queued manner. Not all at once
