@@ -81,6 +81,11 @@ export default class ConnectedChatroom extends Component<
   ConnectedChatroomProps,
   ConnectedChatroomState
 > {
+
+  // constructor(props) {
+  //   super(props);
+  //   this.createNewBotMessage = this.createNewBotMessage.bind(this);
+  // }
   state = {
     messages: [],
     messageQueue: [],
@@ -273,28 +278,29 @@ export default class ConnectedChatroom extends Component<
             
           }
         });
-
+        const that = this
         // Listen for messages
         connection.addEventListener('message', function (event) {
           console.log('Message from server ');
           console.log(event.data.message)
           const event_data = JSON.parse(event.data)
-          if(event_data.type === 'ping'){
-            console.log("ping message")
-          } else if(event_data.message){
+          if(event_data.message){
             const event_type = event_data.message.event
             console.log(`event type: ${event_type}`)
             if(event_type === 'message.created'){
               const message_data = event_data.message.data
               if (message_data.message_type === 1){
                 console.log(`new message from agent: ${message_data.content}`)
-                this.createNewBotMessage({ type: "text", text: message_data.content })
+                const messageQ = [that.createNewBotMessage({ type: "text", text: message_data.content })]
+                that.setState({
+                  messageQueue: messageQ})
               }
             }
-          } else{
-            console.log(`unknown event:`)
-            console.log(event_data)
-          }
+          } 
+          // else{
+          //   console.log(`unknown event:`)
+          //   console.log(event_data)
+          // }
         });
 
         connection.addEventListener('close', function (event) {
