@@ -1,7 +1,7 @@
 [ignore]
 .*/node_modules/config-chain/.*/broken\.json
 .*/node_modules/@parcel/watcher/test/tmp/config\.json
-
+./src/*
 [include]
 
 [libs]

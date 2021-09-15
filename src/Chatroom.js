@@ -23,7 +23,7 @@ export type MessageType =
   | { type: "image", image: string }
   | {
       type: "button",
-      buttons: Array<{ payload: string, title: string, selected?: boolean }>
+      buttons: Array<{ payload?: string, url?: string, title: string, selected?: boolean }>
     }
   | {
       type: "custom",
@@ -47,7 +47,10 @@ const WaitingBubble = () => (
 const MessageGroup = ({ messages, onButtonClick, voiceLang }) => {
   const isBot = messages[0].username === "bot";
   const isButtonGroup =
-    messages.length === 1 && messages[0].message.type === "button";
+    messages.length === 1 && (messages[0].message.type === "button");
+  //console.log("message group messages:")
+  //console.log(`buttonClick: ${onButtonClick}`)
+  //console.log(messages)
   return (
     <Fragment>
       {messages.map((message, i) => (
@@ -71,7 +74,7 @@ type ChatroomProps = {
   isOpen: boolean,
   waitingForBotResponse: boolean,
   speechRecognition: ?string,
-  onButtonClick: (message: string, payload: string) => *,
+  onButtonClick: (message: string, payload?: string, url?: string) => *,
   onSendMessage: (message: string) => *,
   onToggleChat: () => *,
   voiceLang: ?string
@@ -140,9 +143,9 @@ export default class Chatroom extends Component<ChatroomProps, ChatroomState> {
     this.setState({ inputValue: "" });
   };
 
-  handleButtonClick = (message: string, payload: string) => {
+  handleButtonClick = (message, payload, url) => {
     if (this.props.onButtonClick != null) {
-      this.props.onButtonClick(message, payload);
+      this.props.onButtonClick(message, payload, url);
     }
     this.focusInput();
   };

@@ -343,8 +343,14 @@ export default class ConnectedChatroom extends Component<
     }
   };
 
-  handleButtonClick = (buttonTitle: string, payload: string) => {
-    this.sendMessage(payload);
+  handleButtonClick = (buttonTitle, payload, url) => {
+    if(url){
+      console.log("URL: found web url")
+      window.open(url)
+    } else{
+      this.sendMessage(payload);
+    }
+    
     if (window.ga != null) {
       window.ga("send", "event", "chat", "chat-button-click");
     }

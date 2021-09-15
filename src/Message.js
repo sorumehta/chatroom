@@ -43,7 +43,7 @@ const speak = (message: string, voiceLang: string) => {
   synth.speak(toSpeak);
 };
 
-const Message = ({ chat, onButtonClick, voiceLang = null }: MessageProps) => {
+const Message = ({ chat, onButtonClick, voiceLang = null }) => {
   const message = chat.message;
   const isBot = chat.username === "bot";
 
@@ -60,9 +60,13 @@ const Message = ({ chat, onButtonClick, voiceLang = null }: MessageProps) => {
 
   switch (message.type) {
     case "button":
+      // console.log("button type found:")
+      // message.buttons.map(({ payload, title, selected, url }) => {
+      //   console.log(`payload: ${payload}, url: ${url}`)
+      // })
       return (
         <ul className="chat-buttons">
-          {message.buttons.map(({ payload, title, selected }) => (
+          {message.buttons.map(({ payload, title, selected, url }) => (
             <li
               className={classnames("chat-button", {
                 "chat-button-selected": selected,
@@ -71,7 +75,7 @@ const Message = ({ chat, onButtonClick, voiceLang = null }: MessageProps) => {
               key={payload}
               onClick={
                 onButtonClick != null
-                  ? () => onButtonClick(title, payload)
+                  ? () => onButtonClick(title, payload, url)
                   : noop
               }
             >
