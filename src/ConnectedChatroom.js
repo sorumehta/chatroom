@@ -263,7 +263,7 @@ export default class ConnectedChatroom extends Component<
           })
         }
         console.log(`switching to ${message.custom.handoff_host}`);
-        this.sendMessage(`/${this.props.handoffIntent}{"from_host":"${this.props.host}"}`);
+        this.sendMessage(`/${this.props.handoffIntent}{"company":"${message.custom.user_company}", "pincode":"${message.custom.pincode}", "address":"${message.custom.user_address}", "query": "${message.custom.user_query}"}`);
         // ws subscribe
         
         const connection = new WebSocket(`ws://${CHATWOOT_ENDPOINT}/cable`);
