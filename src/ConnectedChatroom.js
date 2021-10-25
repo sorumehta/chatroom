@@ -6,8 +6,8 @@ import type { ChatMessage, MessageType } from "./Chatroom";
 import Chatroom from "./Chatroom";
 import { sleep, uuidv4 } from "./utils";
 
-const CHATWOOT_ENDPOINT = '136.233.77.66:3000'
-const CHAT_SERVER_ENDPOINT = 'http://136.233.77.66:3033'
+const CHATWOOT_ENDPOINT = '45.32.104.26:3000'
+const CHAT_SERVER_ENDPOINT = 'http://45.32.104.26:3033'
 
 type ConnectedChatroomProps = {
   userId: string,
