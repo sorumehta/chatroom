@@ -6,8 +6,8 @@ import type { ChatMessage, MessageType } from "./Chatroom";
 import Chatroom from "./Chatroom";
 import { sleep, uuidv4 } from "./utils";
 
-const CHATWOOT_ENDPOINT = '45.32.104.26:3000'
-const CHAT_SERVER_ENDPOINT = 'http://45.32.104.26:3033'
+const CHATWOOT_ENDPOINT = 'support.esslsecurity.com'
+const CHAT_SERVER_ENDPOINT = 'https://handoffapi.esslsecurity.com'
 
 type ConnectedChatroomProps = {
   userId: string,
@@ -266,7 +266,7 @@ export default class ConnectedChatroom extends Component<
         this.sendMessage(`/${this.props.handoffIntent}{"company":"${message.custom.user_company}", "pincode":"${message.custom.pincode}", "address":"${message.custom.user_address}", "query": "${message.custom.user_query}"}`);
         // ws subscribe
         
-        const connection = new WebSocket(`ws://${CHATWOOT_ENDPOINT}/cable`);
+        const connection = new WebSocket(`wss://${CHATWOOT_ENDPOINT}/cable`);
         // Connection opened
         connection.addEventListener('open', function (event) {
           console.log("websocket connection established.")
